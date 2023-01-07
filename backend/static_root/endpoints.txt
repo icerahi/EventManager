@@ -1,0 +1,34 @@
+
+End points:
+
+Auhentication:
+    Login=>METHOD-POST: /auth/login/ 
+            =>body : {username,password}
+            => Response: {refresh token,access token}
+
+    Register=> METHOD-POST: /auth/register/
+            => body: username,email,password,password2
+            =>response: {username,email,token=>{refresh_token,access_token}}
+
+    Refresh=> METHOD-POST:/auth/token/refresh/
+            => body: {refresh token}
+            => response: {new access token}
+
+    
+Task:
+    create=> 
+        Header => Authorization:'JWT <token>' or 'Bearer <token>'
+        METHOD-POST: /
+            =>body:{note}
+            =>response:{user,note,color,is_done,created,updated}
+    
+    user TaskList =>
+        Header => Authorization:'JWT <token>' or 'Bearer <token>'
+        METHOD-GET: /
+    
+    update Task =>
+        Header => Authorization:'JWT <token>' or 'Bearer <token>'
+        METHOD-PUT or PATCH or Delete: /task/<id>
+            body: {note,color(option),is_done(optional)}
+            response : {user,note,color,is_done,created,updated}
+
